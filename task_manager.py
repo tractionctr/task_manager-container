@@ -11,23 +11,8 @@ logged_in_user = None
 def load_users():
     users = {}
 
-    try:
-        with open("user.txt", "r") as file:
-            for line in file:
-                line = line.strip()
-
-                if line == "":
-                    continue
-
-                username, password = line.split(", ")
-                users[username] = password
-
-    except FileNotFoundError:
-        pass
-
-    # if file empty OR no users → create admin
-    if len(users) == 0:
-        print("No users found. Creating admin account.")
+    if not os.path.exists("user.txt"):
+        print("No user file found. Creating admin account.")
 
         username = input("Create admin username: ")
         password = input("Create admin password: ")
@@ -36,6 +21,18 @@ def load_users():
 
         with open("user.txt", "w") as file:
             file.write(f"{username}, {password}\n")
+
+        return users
+
+    with open("user.txt", "r") as file:
+        for line in file:
+            line = line.strip()
+
+            if line == "":
+                continue
+
+            username, password = line.split(", ")
+            users[username] = password
 
     return users
 

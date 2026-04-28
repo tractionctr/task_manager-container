@@ -3,6 +3,8 @@ import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+print("CODE VERSION 999")
+
 logged_in_user = None
 
 

@@ -3,13 +3,9 @@ import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-print("CODE VERSION 999")
-
 logged_in_user = None
 
-
 # -- Helper functions --
-print("A")
 def load_users():
     users = {}
 
@@ -483,7 +479,7 @@ while True:
 # -- Main menu --
 
 while True:
-    if logged_in_user != admin_user:
+    if logged_in_user == admin_user:
         menu = input(
             '''Select one of the following options:
 r - register a user

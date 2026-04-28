@@ -7,7 +7,7 @@ logged_in_user = None
 
 
 # -- Helper functions --
-
+print("A")
 def load_users():
     users = {}
 

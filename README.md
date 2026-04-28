@@ -10,3 +10,7 @@ docker run -it tractionctr/task-manager
 - Task creation
 - Task tracking
 - Reports generation
+
+## Admin user:
+### username: admin
+### password: admin123

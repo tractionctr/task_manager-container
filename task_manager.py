@@ -23,12 +23,19 @@ def load_users():
                 users[username] = password
 
     except FileNotFoundError:
-        print("File not found, creating file with default admin.")
+        pass
+
+    # if file empty OR no users → create admin
+    if len(users) == 0:
+        print("No users found. Creating admin account.")
+
+        username = input("Create admin username: ")
+        password = input("Create admin password: ")
+
+        users[username] = password
 
         with open("user.txt", "w") as file:
-            file.write("admin, admin123\n")
-
-        users["admin"] = "admin123"
+            file.write(f"{username}, {password}\n")
 
     return users
 
@@ -152,7 +159,7 @@ def get_task_choice(amount, prompt):
 def reg_user():
     global users
 
-    if logged_in_user != "admin":
+    if logged_in_user != admin_user:
         print("Only admin can register users.")
         return
 
@@ -313,7 +320,7 @@ def view_completed():
 
 
 def delete_task():
-    if logged_in_user != "admin":
+    if logged_in_user != admin_user:
         print("Only admin can delete tasks.")
         return
 
@@ -455,7 +462,7 @@ def display_statistics():
 # -- Login --
 
 users = load_users()
-#print(users)
+admin_user = list(users.keys())[0]
 
 while True:
     username = input("Username: ")
@@ -477,7 +484,7 @@ while True:
 # -- Main menu --
 
 while True:
-    if logged_in_user == "admin":
+    if logged_in_user != admin_user:
         menu = input(
             '''Select one of the following options:
 r - register a user
@@ -501,7 +508,7 @@ e - exit
 : '''
         ).lower()
 
-    if menu == "r" and logged_in_user == "admin":
+    if menu == "r" and logged_in_user == admin_user:
         reg_user()
 
     elif menu == "a":
@@ -513,16 +520,16 @@ e - exit
     elif menu == "vm":
         view_mine()
 
-    elif menu == "vc" and logged_in_user == "admin":
+    elif menu == "vc" and logged_in_user == admin_user:
         view_completed()
 
-    elif menu == "del" and logged_in_user == "admin":
+    elif menu == "del" and logged_in_user == admin_user:
         delete_task()
 
-    elif menu == "gr" and logged_in_user == "admin":
+    elif menu == "gr" and logged_in_user == admin_user:
         generate_reports()
 
-    elif menu == "ds" and logged_in_user == "admin":
+    elif menu == "ds" and logged_in_user == admin_user:
         display_statistics()
 
     elif menu == "e":
